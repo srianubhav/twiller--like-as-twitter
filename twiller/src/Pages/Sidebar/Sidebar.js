@@ -22,18 +22,30 @@ import Customlink from "./Customlink";
 import Sidebaroption from "./Sidebaroption";
 import { useNavigate } from "react-router-dom";
 import useLoggedinuser from "../../hooks/useLoggedinuser"
-const Sidebar = ({ handlelogout, user }) => {
+
+const Sidebar = ({ user }) => {
   const [anchorE1, setanchorE1] = useState(null);
   const openmenu = Boolean(anchorE1);
-  const [ loggedinuser] = useLoggedinuser();
+  const [loggedinuser] = useLoggedinuser();
   const navigate = useNavigate();
+
   const handleclick = (e) => {
     setanchorE1(e.currentTarget);
-    // console.log(e.currentTarget);
   };
+
   const handleclose = () => {
     setanchorE1(null);
   };
+
+  const handleLogout = () => {
+    // Clear any authentication data from storage
+    localStorage.removeItem("authToken");
+    sessionStorage.removeItem("userSession");
+
+    // Redirect to the login page
+    navigate("/login");
+  };
+
   const result = user?.email?.split("@")[0];
 
   return (
@@ -72,7 +84,6 @@ const Sidebar = ({ handlelogout, user }) => {
             loggedinuser[0]?.profileImage
               ? loggedinuser[0].profileImage
               : user && user.photoURL
-            // : "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
           }
         />
         <div className="user__info">
@@ -109,7 +120,6 @@ const Sidebar = ({ handlelogout, user }) => {
                 loggedinuser[0]?.profileImage
                   ? loggedinuser[0]?.profileImage
                   : user && user.photoURL
-                  // : "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
               }
             />
             <div className="user__info subUser__info">
@@ -128,7 +138,7 @@ const Sidebar = ({ handlelogout, user }) => {
           </MenuItem>
           <Divider />
           <MenuItem onClick={handleclose}>Add an existing account</MenuItem>
-          <MenuItem onClick={handlelogout}>Log out @{result}</MenuItem>
+          <MenuItem onClick={handleLogout}>Log out @{result}</MenuItem>
         </Menu>
       </div>
     </div>
