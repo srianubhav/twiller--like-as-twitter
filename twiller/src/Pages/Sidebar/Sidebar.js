@@ -17,32 +17,24 @@ import { Avatar } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import './Sidebaroption.css'
+import "./Sidebar.css";
 import Customlink from "./Customlink";
 import Sidebaroption from "./Sidebaroption";
 import { useNavigate } from "react-router-dom";
-import useLoggedinuser from "../../hooks/useLoggedinuser";
-import "./Sidebar.css"
-
+import useLoggedinuser from "../../hooks/useLoggedinuser"
 const Sidebar = ({ handlelogout, user }) => {
   const [anchorE1, setanchorE1] = useState(null);
   const openmenu = Boolean(anchorE1);
-  const [loggedinuser] = useLoggedinuser();
+  const [ loggedinuser] = useLoggedinuser();
   const navigate = useNavigate();
-
   const handleclick = (e) => {
     setanchorE1(e.currentTarget);
+    // console.log(e.currentTarget);
   };
-
   const handleclose = () => {
     setanchorE1(null);
   };
-
   const result = user?.email?.split("@")[0];
-
-  const handleLogoutClick = () => {
-    handlelogout(); // Call the passed function
-  };
 
   return (
     <div className="sidebar">
@@ -80,6 +72,7 @@ const Sidebar = ({ handlelogout, user }) => {
             loggedinuser[0]?.profileImage
               ? loggedinuser[0].profileImage
               : user && user.photoURL
+            // : "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
           }
         />
         <div className="user__info">
@@ -116,6 +109,7 @@ const Sidebar = ({ handlelogout, user }) => {
                 loggedinuser[0]?.profileImage
                   ? loggedinuser[0]?.profileImage
                   : user && user.photoURL
+                  // : "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
               }
             />
             <div className="user__info subUser__info">
@@ -134,7 +128,7 @@ const Sidebar = ({ handlelogout, user }) => {
           </MenuItem>
           <Divider />
           <MenuItem onClick={handleclose}>Add an existing account</MenuItem>
-          <MenuItem onClick={handleLogoutClick}>Log out @{result}</MenuItem>
+          <MenuItem onClick={handlelogout}>Log out @{result}</MenuItem>
         </Menu>
       </div>
     </div>

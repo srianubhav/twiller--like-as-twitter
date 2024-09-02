@@ -40,7 +40,7 @@ const Mainprofile = ({ user }) => {
       .then((res) => {
         const url = res.data.data.display_url;
         const updateData = {
-          email: user?.email || "Anu@123gmai.com",
+          email: user?.email || "",
           [type]: url,
         };
         setIsLoading(false);
