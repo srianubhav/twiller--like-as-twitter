@@ -22,6 +22,7 @@ import Customlink from "./Customlink";
 import Sidebaroption from "./Sidebaroption";
 import { useNavigate } from "react-router-dom";
 import useLoggedinuser from "../../hooks/useLoggedinuser";
+import "./Sidebar.css"
 
 
 const Sidebar = ({ handlelogout, user }) => {

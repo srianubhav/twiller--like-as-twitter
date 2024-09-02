@@ -22,7 +22,7 @@
   .sidebar__tweet {
     background-color: var(--twitter-color) !important;
     border: none !important;
-    color: white !important;
+    color: rgb(219, 242, 250) !important;
     font-weight: 900 !important;
     text-transform: inherit !important;
     border-radius: 30px !important;

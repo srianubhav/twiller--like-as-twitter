@@ -1,4 +1,4 @@
-import logo from "./logo.svg";
+
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home";
@@ -18,6 +18,8 @@ function App() {
     <div className="app">
       <UserAuthContextProvider>
         <Routes>
+
+          
           <Route path="/" element={<Home/>}>
           <Route index element={<Feed/>}/>
           </Route>
@@ -35,6 +37,7 @@ function App() {
             <Route path="bookmarks" element={<Bookmark />} />
             <Route path="profile" element={<Profile />} />
             <Route path="lists" element={<Lists/>}/>
+            
             
           </Route>
         </Routes>

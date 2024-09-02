@@ -5,7 +5,6 @@ import AddPhotoAlternateOutlinedIcon from "@mui/icons-material/AddPhotoAlternate
 import axios from "axios";
 import { useUserAuth } from "../../../context/UserAuthContext";
 import useLoggedinuser from "../../../hooks/useLoggedinuser";
-
 const Tweetbox = () => {
   const [post, setpost] = useState("");
   const [imageurl, setimageurl] = useState("");

@@ -18,12 +18,9 @@ const style = {
 
 function Editchild({ dob, setdob }) {
   const [open, setopen] = useState(false);
-  const handleopen = () => {
-    setopen(true);
-  };
-  const handleclose = () => {
-    setopen(false);
-  };
+  const handleopen = () => setopen(true);
+  const handleclose = () => setopen(false);
+
   return (
     <React.Fragment>
       <div className="birthdate-section" onClick={handleopen}>
@@ -40,17 +37,18 @@ function Editchild({ dob, setdob }) {
           <div className="text">
             <h2>Edit date of birth</h2>
             <p>
-              This can only be changed a few times
+              This can only be changed a few times.
               <br />
-              Make sure you enter the age of the <br />
-              person using the account.
+              Make sure you enter the age of the person using the account.
             </p>
-            <input type="date" onChange={(e) => setdob(e.target.value)} />
+            <input 
+              type="date" 
+              onChange={(e) => setdob(e.target.value)} 
+              value={dob} 
+            />
             <button
               className="e-button"
-              onClick={() => {
-                setopen(false);
-              }}
+              onClick={handleclose}
             >
               Cancel
             </button>
@@ -70,25 +68,19 @@ const Editprofile = ({ user, loggedinuser, setLoggedinUser }) => {
   const [dob, setdob] = useState(loggedinuser[0]?.dob || "");
 
   const handlesave = () => {
-    const editinfo = {
-      name,
-      bio,
-      location,
-      website,
-      dob,
-    };
+    const editinfo = { name, bio, location, website, dob };
 
     fetch(`http://localhost:5000/userupdate/${user?.email}`, {
       method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(editinfo),
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("done", data);
-        setLoggedinUser(data); // Update the user state with the new data
+        console.log("Profile updated:", data);
+        setLoggedinUser((prevUser) => {
+          return [{ ...prevUser[0], ...editinfo }];
+        }); // Merge the updated info into the current user state
         setopen(false); // Close the modal after saving
       })
       .catch((error) => {
@@ -99,9 +91,7 @@ const Editprofile = ({ user, loggedinuser, setLoggedinUser }) => {
   return (
     <div>
       <button
-        onClick={() => {
-          setopen(true);
-        }}
+        onClick={() => setopen(true)}
         className="Edit-profile-btn"
       >
         Edit profile

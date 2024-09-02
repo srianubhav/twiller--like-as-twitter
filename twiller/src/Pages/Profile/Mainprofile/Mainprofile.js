@@ -13,94 +13,57 @@ import useLoggedinuser from "../../../hooks/useLoggedinuser";
 
 const Mainprofile = ({ user }) => {
   const navigate = useNavigate();
-  const [isloading, setisloading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [loggedinuser] = useLoggedinuser();
   const username = user?.email ? user.email.split("@")[0] : "Anubhav";
-  const [post, setpost] = useState([]);
+  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     if (user?.email) {
       fetch(`http://localhost:5000/userpost?email=${user.email}`)
         .then((res) => res.json())
         .then((data) => {
-          setpost(data);
-        });
+          setPosts(data);
+        })
+        .catch((err) => console.error("Error fetching posts:", err));
     }
   }, [user?.email]);
 
-  const handleuploadcoverimage = (e) => {
-    setisloading(true);
+  const handleUploadImage = (e, type) => {
+    setIsLoading(true);
     const image = e.target.files[0];
     const formData = new FormData();
-    formData.set("image", image);
-    axios
-      .post(
-        "https://api.imgbb.com/1/upload?key=7a3a32e77fec5c9c83f6ad2049f32940",
-        formData
-      )
-      .then((res) => {
-        const url = res.data.data.display_url;
-        const usercoverimage = {
-          email: user?.email || "Anu@123gmai.com",
-          coverimage: url
-        };
-        setisloading(false);
-        if (url) {
-          fetch(`http://localhost:5000/userupdate/${user?.email || "Anu@123gmai.com"}`, {
-            method: "PATCH",
-            headers: {
-              "content-type": "application/json",
-            },
-            body: JSON.stringify(usercoverimage),
-          })
-            .then((res) => res.json())
-            .then((data) => {
-              console.log("done", data);
-            });
-        }
-      })
-      .catch((e) => {
-        console.log(e);
-        window.alert(e);
-        setisloading(false);
-      });
-  };
+    formData.append("image", image);
 
-  const handleuploadprofileimage = (e) => {
-    setisloading(true);
-    const image = e.target.files[0];
-    const formData = new FormData();
-    formData.set("image", image);
     axios
-      .post(
-        "https://api.imgbb.com/1/upload?key=7a3a32e77fec5c9c83f6ad2049f32940",
-        formData
-      )
+      .post("https://api.imgbb.com/1/upload?key=7a3a32e77fec5c9c83f6ad2049f32940", formData)
       .then((res) => {
         const url = res.data.data.display_url;
-        const userprofileimage = {
+        const updateData = {
           email: user?.email || "Anu@123gmai.com",
-          profileImage: url,
+          [type]: url,
         };
-        setisloading(false);
+        setIsLoading(false);
+
         if (url) {
-          fetch(`http://localhost:5000/userupdate/${user?.email || "Anu@123gmai.com"}`, {
+          fetch(`http://localhost:5000/userupdate/${user?.email || ""}`, {
             method: "PATCH",
             headers: {
-              "content-type": "application/json",
+              "Content-Type": "application/json",
             },
-            body: JSON.stringify(userprofileimage),
+            body: JSON.stringify(updateData),
           })
             .then((res) => res.json())
             .then((data) => {
-              console.log("done", data);
-            });
+              console.log(`${type === "profileImage" ? "Profile" : "Cover"} image updated:`, data);
+            })
+            .catch((err) => console.error(`Error updating ${type === "profileImage" ? "profile" : "cover"} image:`, err));
         }
       })
       .catch((e) => {
-        console.log(e);
-        window.alert(e);
-        setisloading(false);
+        console.error(`Error uploading ${type === "profileImage" ? "profile" : "cover"} image:`, e);
+        window.alert(`Failed to upload ${type === "profileImage" ? "profile" : "cover"} image.`);
+        setIsLoading(false);
       });
   };
 
@@ -116,15 +79,15 @@ const Mainprofile = ({ user }) => {
                 src={
                   loggedinuser[0]?.coverimage
                     ? loggedinuser[0].coverimage
-                    : user?.photoURL
+                    : user?.photoURL || ""
                 }
-                alt=""
+                alt="Cover"
                 className="coverImage"
               />
               <div className="hoverCoverImage">
                 <div className="imageIcon_tweetButton">
-                  <label htmlFor="image" className="imageIcon">
-                    {isloading ? (
+                  <label htmlFor="coverImage" className="imageIcon">
+                    {isLoading ? (
                       <LockResetIcon className="photoIcon photoIconDisabled" />
                     ) : (
                       <CenterFocusWeakIcon className="photoIcon" />
@@ -132,9 +95,9 @@ const Mainprofile = ({ user }) => {
                   </label>
                   <input
                     type="file"
-                    id="image"
+                    id="coverImage"
                     className="imageInput"
-                    onChange={handleuploadcoverimage}
+                    onChange={(e) => handleUploadImage(e, "coverimage")}
                   />
                 </div>
               </div>
@@ -145,15 +108,15 @@ const Mainprofile = ({ user }) => {
                   src={
                     loggedinuser[0]?.profileImage
                       ? loggedinuser[0].profileImage
-                      : user?.photoURL 
+                      : user?.photoURL || ""
                   }
-                  alt=""
+                  alt="Avatar"
                   className="avatar"
                 />
                 <div className="hoverAvatarImage">
                   <div className="imageIcon_tweetButton">
                     <label htmlFor="profileImage" className="imageIcon">
-                      {isloading ? (
+                      {isLoading ? (
                         <LockResetIcon className="photoIcon photoIconDisabled" />
                       ) : (
                         <CenterFocusWeakIcon className="photoIcon" />
@@ -163,7 +126,7 @@ const Mainprofile = ({ user }) => {
                       type="file"
                       id="profileImage"
                       className="imageInput"
-                      onChange={handleuploadprofileimage}
+                      onChange={(e) => handleUploadImage(e, "profileImage")}
                     />
                   </div>
                 </div>
@@ -178,29 +141,25 @@ const Mainprofile = ({ user }) => {
                 <Editprofile user={user} loggedinuser={loggedinuser} />
               </div>
               <div className="infoContainer">
-                {loggedinuser[0]?.bio ? <p>{loggedinuser[0].bio}</p> : ""}
+                {loggedinuser[0]?.bio && <p>{loggedinuser[0].bio}</p>}
                 <div className="locationAndLink">
-                  {loggedinuser[0]?.location ? (
-                    <p className="suvInfo">
+                  {loggedinuser[0]?.location && (
+                    <p className="subInfo">
                       <MyLocationIcon /> {loggedinuser[0].location}
                     </p>
-                  ) : (
-                    ""
                   )}
-                  {loggedinuser[0]?.website ? (
+                  {loggedinuser[0]?.website && (
                     <p className="subInfo link">
                       <AddLinkIcon /> {loggedinuser[0].website}
                     </p>
-                  ) : (
-                    ""
                   )}
                 </div>
               </div>
               <h4 className="tweetsText">Tweets</h4>
               <hr />
             </div>
-            {post.map((p) => (
-              <Post p={p} />
+            {posts.map((p, index) => (
+              <Post key={index} p={p} />
             ))}
           </div>
         </div>
