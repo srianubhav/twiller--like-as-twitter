@@ -29,7 +29,7 @@ import "./login.css";
           name: name,
           email: email,
         };
-        fetch("http://localhost:5000/register", {
+        fetch("https://twiller-like-as-twitter.onrender.com/register", {
           method: "POST",
           headers: {
           "content-type": "application/json",

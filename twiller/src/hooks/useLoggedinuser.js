@@ -8,7 +8,7 @@ const useLoggedinuser = () => {
 
     useEffect(() => {
         // Using backticks to create a template literal
-        fetch(`http://localhost:5000/loggedinuser?email=${email}`)
+        fetch(`https://twiller-like-as-twitter.onrender.com/loggedinuser?email=${email}`)
             .then(res => {
                 if (!res.ok) {
                     throw new Error('Network response was not ok');

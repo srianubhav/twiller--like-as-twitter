@@ -15,12 +15,12 @@ const Mainprofile = ({ user }) => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [loggedinuser] = useLoggedinuser();
-  const username = user?.email ? user.email.split("@")[0] : "Anubhav";
+  const username = user?.email ? user.email.split("@")[0] : "";
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:5000/userpost?email=${user.email}`)
+      fetch(`https://twiller-like-as-twitter.onrender.com/userpost?email=${user.email}`)
         .then((res) => res.json())
         .then((data) => {
           setPosts(data);
@@ -46,7 +46,7 @@ const Mainprofile = ({ user }) => {
         setIsLoading(false);
 
         if (url) {
-          fetch(`http://localhost:5000/userupdate/${user?.email || ""}`, {
+          fetch(`https://twiller-like-as-twitter.onrender.com/userupdate/${user?.email || ""}`, {
             method: "PATCH",
             headers: {
               "Content-Type": "application/json",
@@ -134,7 +134,7 @@ const Mainprofile = ({ user }) => {
               <div className="userInfo">
                 <div>
                   <h3 className="heading-3">
-                    {loggedinuser[0]?.name || "Anubhav Srivastava"}
+                    {loggedinuser[0]?.name || ""}
                   </h3>
                   <p className="usernameSection">@{username}</p>
                 </div>
