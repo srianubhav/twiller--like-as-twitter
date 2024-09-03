@@ -21,9 +21,9 @@ import "./Sidebar.css";
 import Customlink from "./Customlink";
 import Sidebaroption from "./Sidebaroption";
 import { useNavigate } from "react-router-dom";
-import useLoggedinuser from "../../hooks/useLoggedinuser"
+import useLoggedinuser from "../../hooks/useLoggedinuser";
 
-const Sidebar = ({ user }) => {
+const Sidebar = ({ handlelogout, user }) => {
   const [anchorE1, setanchorE1] = useState(null);
   const openmenu = Boolean(anchorE1);
   const [loggedinuser] = useLoggedinuser();
@@ -35,15 +35,6 @@ const Sidebar = ({ user }) => {
 
   const handleclose = () => {
     setanchorE1(null);
-  };
-
-  const handleLogout = () => {
-    // Clear any authentication data from storage
-    localStorage.removeItem("authToken");
-    sessionStorage.removeItem("userSession");
-
-    // Redirect to the login page
-    navigate("/login");
   };
 
   const result = user?.email?.split("@")[0];
@@ -138,7 +129,7 @@ const Sidebar = ({ user }) => {
           </MenuItem>
           <Divider />
           <MenuItem onClick={handleclose}>Add an existing account</MenuItem>
-          <MenuItem onClick={handleLogout}>Log out @{result}</MenuItem>
+          <MenuItem onClick={handlelogout}>Log out @{result}</MenuItem>
         </Menu>
       </div>
     </div>

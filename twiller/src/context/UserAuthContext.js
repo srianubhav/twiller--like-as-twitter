@@ -7,37 +7,40 @@ import {
     GoogleAuthProvider,
     signInWithPopup,
 } from "firebase/auth";
-import { auth } from "./firbase";
+import { auth } from "../context/firbase"  // Ensure correct path
 
- const userAuthContext = createContext();
+const userAuthContext = createContext();
 
-export function UserAuthContextProvider( {children} ) {
-    const [user, setUser] = useState({});
+export function UserAuthContextProvider({ children }) {
+    const [user, setUser] = useState(null);
 
     function login(email, password) {
-        return signInWithEmailAndPassword(auth, email, password);
+        return signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                setUser(userCredential.user);  // Immediately update user state
+            });
     }
+
     function signUp(email, password) {
-        
-         createUserWithEmailAndPassword(auth, email, password)
-         .then((userCredential) => {
-            // Signed up 
-            const user = userCredential.user;
-            // ...
-          })
-          .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log(errorCode,errorMessage)
-            // ..
-          });
+        return createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                setUser(userCredential.user);
+            })
+            .catch((error) => {
+                console.log(error.code, error.message);
+            });
     }
+
     function logOut() {
-        return signOut(auth);
+        return signOut(auth).then(() => setUser(null));  // Clear user state on logout
     }
+
     function googlesignin() {
         const googleAuthProvider = new GoogleAuthProvider();
-        return signInWithPopup(auth, googleAuthProvider);
+        return signInWithPopup(auth, googleAuthProvider)
+            .then((userCredential) => {
+                setUser(userCredential.user);
+            });
     }
 
     useEffect(() => {
@@ -59,7 +62,7 @@ export function UserAuthContextProvider( {children} ) {
         </userAuthContext.Provider>
     );
 }
-// export default UserAuthContextProvider
+
 export function useUserAuth() {
     return useContext(userAuthContext);
 }

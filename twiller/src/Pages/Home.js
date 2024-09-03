@@ -1,34 +1,31 @@
-import React from 'react'
-import Widgets from './Widgets/Widgets'
-import Sidebar from './Sidebar/Sidebar'
-import { Outlet } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom'
-import { useUserAuth } from '../context/UserAuthContext'
-
+import React from 'react';
+import Widgets from './Widgets/Widgets';
+import Sidebar from './Sidebar/Sidebar';
+import { Outlet } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useUserAuth } from '../context/UserAuthContext';
 
 const Home = () => {
-   const {logOut, user }= useUserAuth()
+  const { logOut, user } = useUserAuth();
   const navigate = useNavigate();
- // const user={
-   // displayname:"bithed",
-  // email:"bithed@gmail.com"
- // }
-  const handlelout= async ()=>{
-    try{
-      await logOut()
+
+  const handlelogout = async () => {
+    try {
+      await logOut();
       navigate("/login");
-    }catch (error){
+    } catch (error) {
       console.log(error.message);
     }
-  }
-  return (
-    <div className='app'> 
-    <Sidebar handlelout={handlelout}user={user}/>
-    <Outlet/>
-    <Widgets/>
-      
-    </div>
-  )
-}
+  };
 
-export default Home
+  return (
+    <div className='app'>
+      <Sidebar handlelogout={handlelogout} user={user} />
+      <Outlet />
+      <Widgets />
+    </div>
+  );
+};
+
+export default Home;
+

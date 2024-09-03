@@ -1,5 +1,5 @@
-import React, { useState,useContext } from "react";
-import twitterimg from '../Login/image/twitter.jpeg'
+import React, { useState } from "react";
+import twitterimg from '../Login/image/twitter.jpeg';
 import TwitterIcon from "@mui/icons-material/Twitter";
 import GoogleButton from "react-google-button";
 import { useNavigate, Link } from "react-router-dom";
@@ -11,38 +11,39 @@ const Login = () => {
   const [password, setpassword] = useState("");
   const [error, seterror] = useState("");
   const navigate = useNavigate();
-  const { googlesignin ,login} = useUserAuth();
+  const { googlesignin, login } = useUserAuth();
+
   const handlesubmit = async (e) => {
     e.preventDefault();
     seterror("");
     try {
-      await login(email,password)
+      await login(email, password);
       navigate("/");
     } catch (error) {
       seterror(error.message);
-      window.alert(error.message);
     }
   };
-  const hanglegooglesignin = async (e) => {
-    e.preventDefault();
+
+  const hanglegooglesignin = async () => {
     try {
       await googlesignin();
       navigate("/");
     } catch (error) {
-      console.log(error.message);
+      seterror(error.message); // Display Google Sign-In errors
     }
   };
+
   return (
     <>
       <div className="login-container">
         <div className="image-container">
-          <img src={twitterimg} className=" image" alt="twitterimg" />
+          <img src={twitterimg} className="image" alt="twitterimg" />
         </div>
         <div className="form-container">
           <div className="form-box">
             <TwitterIcon style={{ color: "skyblue" }} />
             <h2 className="heading">Happening now</h2>
-            {error && <p>{error.message}</p>}
+            {error && <p className="error-message">{error}</p>}
             <form onSubmit={handlesubmit}>
               <input
                 type="email"
@@ -87,7 +88,4 @@ const Login = () => {
   );
 };
 
-export default Login;  
-
-
-
+export default Login;
