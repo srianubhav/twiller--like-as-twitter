@@ -70,7 +70,7 @@ const Editprofile = ({ user, loggedinuser, setLoggedinUser }) => {
   const handlesave = () => {
     const editinfo = { name, bio, location, website, dob };
 
-    fetch(`https://twiller-like-as-twitter.onrender.com/userupdate/${user?.email}`, {
+    fetch(`https:localhost:5000/${user?.email}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(editinfo),

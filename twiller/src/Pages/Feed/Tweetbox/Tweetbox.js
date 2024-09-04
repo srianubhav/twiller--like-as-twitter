@@ -41,7 +41,7 @@ const Tweetbox = () => {
   const handletweet = (e) => {
     e.preventDefault();
     if (user?.providerData[0]?.providerId === "password") {
-      fetch(`https://twiller-like-as-twitter.onrender.com/loggedinuser?email=${email}`)
+      fetch(`https://localhost:5000/loggedinuser?email=${email}`)
         .then((res) => res.json())
         .then((data) => {
           // console.log(data[0].name);

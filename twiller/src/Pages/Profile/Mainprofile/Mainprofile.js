@@ -15,17 +15,21 @@ const Mainprofile = ({ user }) => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [loggedinuser] = useLoggedinuser();
-  const username = user?.email ? user.email.split("@")[0] : "";
+  const username = user?.email ? user.email.split("@")[0] : "Guest";
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`https://twiller-like-as-twitter.onrender.com/userpost?email=${user.email}`)
+      // Use HTTP for local development
+      fetch(`http://localhost:5000/userpost?email=${user.email}`)
         .then((res) => res.json())
         .then((data) => {
           setPosts(data);
         })
-        .catch((err) => console.error("Error fetching posts:", err));
+        .catch((err) => {
+          console.error("Error fetching posts:", err);
+          // Optionally set an error state here to notify the user
+        });
     }
   }, [user?.email]);
 
@@ -43,28 +47,26 @@ const Mainprofile = ({ user }) => {
           email: user?.email || "",
           [type]: url,
         };
-        setIsLoading(false);
 
         if (url) {
-          fetch(`https://twiller-like-as-twitter.onrender.com/userupdate/${user?.email || ""}`, {
+          return fetch(`http://localhost:5000/userupdate/${user?.email || ""}`, {
             method: "PATCH",
             headers: {
               "Content-Type": "application/json",
             },
             body: JSON.stringify(updateData),
-          })
-            .then((res) => res.json())
-            .then((data) => {
-              console.log(`${type === "profileImage" ? "Profile" : "Cover"} image updated:`, data);
-            })
-            .catch((err) => console.error(`Error updating ${type === "profileImage" ? "profile" : "cover"} image:`, err));
+          });
         }
       })
-      .catch((e) => {
-        console.error(`Error uploading ${type === "profileImage" ? "profile" : "cover"} image:`, e);
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(`${type === "profileImage" ? "Profile" : "Cover"} image updated:`, data);
+      })
+      .catch((err) => {
+        console.error(`Error updating ${type === "profileImage" ? "profile" : "cover"} image:`, err);
         window.alert(`Failed to upload ${type === "profileImage" ? "profile" : "cover"} image.`);
-        setIsLoading(false);
-      });
+      })
+      .finally(() => setIsLoading(false));
   };
 
   return (
@@ -79,7 +81,7 @@ const Mainprofile = ({ user }) => {
                 src={
                   loggedinuser[0]?.coverimage
                     ? loggedinuser[0].coverimage
-                    : user?.photoURL || ""
+                    : user?.photoURL || "https://via.placeholder.com/150"
                 }
                 alt="Cover"
                 className="coverImage"
@@ -108,7 +110,7 @@ const Mainprofile = ({ user }) => {
                   src={
                     loggedinuser[0]?.profileImage
                       ? loggedinuser[0].profileImage
-                      : user?.photoURL || ""
+                      : user?.photoURL || "https://via.placeholder.com/150"
                   }
                   alt="Avatar"
                   className="avatar"
@@ -134,7 +136,7 @@ const Mainprofile = ({ user }) => {
               <div className="userInfo">
                 <div>
                   <h3 className="heading-3">
-                    {loggedinuser[0]?.name || ""}
+                    {loggedinuser[0]?.name || "No Name Provided"}
                   </h3>
                   <p className="usernameSection">@{username}</p>
                 </div>
@@ -158,9 +160,11 @@ const Mainprofile = ({ user }) => {
               <h4 className="tweetsText">Tweets</h4>
               <hr />
             </div>
-            {posts.map((p, index) => (
-              <Post key={index} p={p} />
-            ))}
+            {posts.length > 0 ? (
+              posts.map((p, index) => <Post key={index} p={p} />)
+            ) : (
+              <p>No posts available.</p>
+            )}
           </div>
         </div>
       </div>
