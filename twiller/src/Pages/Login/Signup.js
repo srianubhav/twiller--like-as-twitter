@@ -29,7 +29,7 @@ import "./login.css";
           name: name,
           email: email,
         };
-        fetch("https://twiller-like-as-twitter.onrender.com/register", {
+        fetch("https://localhost:5000/register", {
           method: "POST",
           headers: {
           "content-type": "application/json",
@@ -64,7 +64,7 @@ import "./login.css";
             <img className="image" src={twitterimg} alt="twitterimage" />
           </div>
   
-          <div className="form-container">
+          <div className="form-container ">
             <div className="">
               <TwitterIcon className="Twittericon" style={{ color: "skyblue" }} />
               <h2 className="heading">Happening now</h2>

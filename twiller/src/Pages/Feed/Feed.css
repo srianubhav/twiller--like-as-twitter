@@ -1,24 +1,112 @@
+/* Base styles for .feed and its related elements 
 .feed {
-    flex: 0.4;
-    border-right: 1px solid var(--twitter-background);
-    min-width: fit-content;
-    overflow-y: scroll;
+  flex: 0.4;
+  border-right: 1px solid var(--twitter-background);
+  min-width: fit-content;
+  overflow-y: scroll;
+}
+
+.feed::-webkit-scrollbar {
+  display: none;
+}
+
+.feed__header {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 100;
+  border: 1px solid var(--twitter-background);
+  padding: 15px 20px;
+}
+
+.feed__header > h2 {
+  font-size: 20px;
+  font-weight: 800;
+}
+
+/* Responsive design adjustments */
+
+.feed {
+  flex: 0.4;
+  border-right: 1px solid var(--twitter-background);
+  min-width: fit-content;
+  overflow-y: scroll;
+}
+
+.feed::-webkit-scrollbar {
+  display: none;
+}
+
+.feed__header {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 100;
+  border: 1px solid var(--twitter-background);
+  padding: 15px 20px;
+}
+
+.feed__header>h2 {
+  font-size: 20px;
+  font-weight: 800;
+}
+
+/* Tablets in landscape mode and small laptops */
+@media screen and (max-width: 1024px) {
+  .feed {
+    flex: 0.35;
   }
-  
-  .feed::-webkit-scrollbar {
-    display: none;
-  }
-  
+
   .feed__header {
-    position: sticky;
-    top: 0;
-    background-color: white;
-    z-index: 100;
-    border: 1px solid var(--twitter-background);
-    padding: 15px 20px;
+    padding: 12px 18px;
   }
-  
-  .feed__header>h2 {
-    font-size: 20px;
-    font-weight: 800;
+
+  .feed__header > h2 {
+    font-size: 18px;
   }
+}
+
+/* Small tablets and large smartphones */
+@media screen and (max-width: 768px) {
+  .feed {
+    flex: 0.3;
+  }
+
+  .feed__header {
+    padding: 10px 15px;
+  }
+
+  .feed__header > h2 {
+    font-size: 16px;
+  }
+}
+
+/* Small smartphones and very small screens */
+@media screen and (max-width: 480px) {
+  .feed {
+    flex: 0.25;
+  }
+
+  .feed__header {
+    padding: 8px 12px;
+  }
+
+  .feed__header > h2 {
+    font-size: 14px;
+  }
+}
+
+/* Extra small smartphones */
+@media screen and (max-width: 360px) {
+  .feed {
+    flex: 0.2;
+  }
+
+  .feed__header {
+    padding: 6px 10px;
+  }
+
+  .feed__header > h2 {
+    font-size: 12px;
+  }
+}

@@ -1,4 +1,3 @@
-
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home";
@@ -12,8 +11,10 @@ import ProtectedRoute from "./Pages/ProtectedRoute";
 import Lists from "./Pages/Lists/Lists";
 import Profile from "./Pages/Profile/Profile";
 import More from "./Pages/More/More";
-import { UserAuthContextProvider } from "./context/UserAuthContext";
 import Bookmark from "./Pages/Bookmark/Bookmark";
+
+import { UserAuthContextProvider } from "./context/UserAuthContext";
+
 function App() {
   return (
     <div className="app">
@@ -23,22 +24,12 @@ function App() {
             path="/"
             element={
               <ProtectedRoute>
-                {" "}
                 <Home />
               </ProtectedRoute>
             }
           >
             <Route index element={<Feed />} />
           </Route>
-          <Route
-            path="/"
-            element={
-              <ProtectedRoute>
-                {" "}
-                <Home />
-              </ProtectedRoute>
-            }
-          />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/home" element={<Home />}>
@@ -50,6 +41,7 @@ function App() {
             <Route path="bookmarks" element={<Bookmark />} />
             <Route path="profile" element={<Profile />} />
             <Route path="more" element={<More />} />
+            
           </Route>
         </Routes>
       </UserAuthContextProvider>
@@ -58,3 +50,4 @@ function App() {
 }
 
 export default App;
+

@@ -17,11 +17,11 @@ import { Avatar } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import "./Sidebar.css";
 import Customlink from "./Customlink";
 import Sidebaroption from "./Sidebaroption";
 import { useNavigate } from "react-router-dom";
 import useLoggedinuser from "../../hooks/useLoggedinuser";
+import "./Sidebar.css"; // Import the new CSS file
 
 const Sidebar = ({ handlelogout, user }) => {
   const [anchorE1, setanchorE1] = useState(null);
@@ -35,6 +35,10 @@ const Sidebar = ({ handlelogout, user }) => {
 
   const handleclose = () => {
     setanchorE1(null);
+  };
+
+  const handleTweetClick = () => {
+    navigate("/home/tweets"); // Redirect to Tweets page
   };
 
   const result = user?.email?.split("@")[0];
@@ -66,7 +70,11 @@ const Sidebar = ({ handlelogout, user }) => {
       <Customlink to="/home/more">
         <Sidebaroption Icon={MoreIcon} text="More" />
       </Customlink>
-      <Button variant="outlined" className="sidebar__tweet" fullWidth>
+      <Button
+        variant="outlined"
+        className="sidebar__tweet"
+        onClick={handleTweetClick} // Add onClick handler
+      >
         Tweet
       </Button>
       <div className="Profile__info">
@@ -76,18 +84,20 @@ const Sidebar = ({ handlelogout, user }) => {
               ? loggedinuser[0].profileImage
               : user && user.photoURL
           }
+          className="profile__avatar"
         />
         <div className="user__info">
-          <h4>
+          <h4 className="user__name">
             {loggedinuser[0]?.name
               ? loggedinuser[0].name
               : user && user.displayName}
           </h4>
-          <h5>@{result}</h5>
+          <h5 className="user__handle">
+            @{result}
+          </h5>
         </div>
         <IconButton
           size="small"
-          sx={{ ml: 2 }}
           aria-controls={openmenu ? "basic-menu" : undefined}
           aria-haspopup="true"
           aria-valuetext={openmenu ? "true" : undefined}
@@ -112,15 +122,18 @@ const Sidebar = ({ handlelogout, user }) => {
                   ? loggedinuser[0]?.profileImage
                   : user && user.photoURL
               }
+              className="profile__avatar"
             />
             <div className="user__info subUser__info">
               <div>
-                <h4>
+                <h4 className="user__name">
                   {loggedinuser[0]?.name
                     ? loggedinuser[0].name
                     : user && user.displayName}
                 </h4>
-                <h5>@{result}</h5>
+                <h5 className="user__handle">
+                  @{result}
+                </h5>
               </div>
               <ListItemIcon className="done__icon" color="blue">
                 <DoneIcon />

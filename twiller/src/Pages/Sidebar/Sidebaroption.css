@@ -1,33 +1,94 @@
+/* General Styles */
 .sidebarOptions {
-    display: flex;
-    align-items: center;
-    padding-bottom: 5px;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 200ms ease, color 200ms ease;
+  border-radius: 30px;
+  background-color: transparent;
+  color: black;
+}
+
+.sidebarOptions:hover {
+  background-color: #e8f5fe;
+  color: var(--twitter-color);
+}
+
+.sidebarOptions > .MuiSvgIcon-root {
+  padding: 10px;
+}
+
+.sidebarOptions > h2 {
+  font-weight: 600;
+  font-size: 18px;
+  margin-left: 10px;
+}
+
+/* Active State */
+.sidebarOptions--active {
+  background-color: var(--twitter-color);
+  color: white;
+}
+
+/* Responsive Breakpoints */
+
+/* Medium Devices (Tablets and smaller desktops) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .sidebarOptions {
+    padding: 8px 12px;
   }
-  
-  .sidebarOptions:hover {
-    background-color: #e8f5fe;
-    border-radius: 30px;
-    color: var(--twitter-color);
-    transition: color 100ms ease-out;
+  .sidebarOptions > h2 {
+    font-size: 16px;
+    margin-left: 8px;
   }
-  
-  .sidebarOptions>.MuiSvgIcon-root {
-    padding: 10px 15px;
+  .sidebarOptions > .MuiSvgIcon-root {
+    padding: 8px;
   }
-  
-  .sidebarOptions>h2 {
-    font-weight: 600;
-    font-size: 18px;
-    margin-right: 20px;
+}
+
+/* Small Devices (Tablets and larger smartphones) */
+@media (min-width: 480px) and (max-width: 767px) {
+  .sidebarOptions {
+    padding: 6px 10px;
   }
-  
-  .done__icon {
-    color: var(--twitter-color) !important;
+  .sidebarOptions > h2 {
+    font-size: 14px;
+    margin-left: 8px;
   }
-  
-  @media screen and (max-width:688px) {
-    .sidebar__tweet {
-      display: none;
-    }
+  .sidebarOptions > .MuiSvgIcon-root {
+    padding: 6px;
   }
+}
+
+/* Extra Small Devices (Smartphones) */
+@media (max-width: 479px) {
+  .sidebarOptions {
+    flex-direction: row;
+    padding: 5px 10px;
+    justify-content: flex-start;
+  }
+  .sidebarOptions > h2 {
+    font-size: 12px;
+    margin-left: 5px;
+  }
+  .sidebarOptions > .MuiSvgIcon-root {
+    padding: 4px;
+  }
+}
+
+/* Smaller Smartphones (Very small devices) */
+@media (max-width: 360px) {
+  .sidebarOptions {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 5px;
+  }
+  .sidebarOptions > h2 {
+    font-size: 10px;
+    margin-left: 3px;
+  }
+  .sidebarOptions > .MuiSvgIcon-root {
+    padding: 3px;
+  }
+}

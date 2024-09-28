@@ -1,3 +1,4 @@
+/* Existing Styles */
 .page {
     flex: 0.4;
     border-right: 1px solid var(--twitter-background);
@@ -19,9 +20,50 @@
     display: none;
 }
 
-
 .pageTitle {
     color: var(--twitter-color);
     text-align: center;
     font-size: 30px;
+}
+
+
+@media screen and (max-width: 768px) {
+    .page {
+        padding: 0 50px; /* Further reduce padding for smaller tablets and large phones */
+    }
+
+    .profilePage {
+        flex: 1; /* Make profilePage take full width on smaller screens */
+    }
+}
+
+/* For mobile screens */
+@media screen and (max-width: 480px) {
+    .page {
+        padding: 0 20px; /* Reduce padding for mobile screens */
+        flex-direction: column; /* Stack elements vertically on small screens */
+    }
+
+    .profilePage {
+        flex: 1;
+    }
+
+    .pageTitle {
+        font-size: 24px; /* Reduce font size for better readability on mobile */
+    }
+}
+
+/* For very small smartphones (like 360px width) */
+@media screen and (max-width: 360px) {
+    .page {
+        padding: 0 10px; 
+    }
+
+    .pageTitle {
+        font-size: 20px; 
+    }
+
+    .profilePage {
+        padding: 10px; 
+    }
 }

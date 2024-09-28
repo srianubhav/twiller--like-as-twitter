@@ -1,49 +1,103 @@
+/* Base Styles */
 .widgets {
-    flex: 0.3;
-    min-width: fit-content;
-    overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border: 1px solid #e6ecf0;
+  border-radius: 8px;
+  background-color: white;
+  position: relative;
+  
+  
+}
+
+.widgets__input {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.widget__searchIcon {
+  padding: 10px;
+  color: #888;
+}
+
+.widgets__input input {
+  border: none;
+  outline: none;
+  padding: 10px;
+  font-size: 16px;
+  flex: 1;
+}
+
+/* Widgets Container */
+.widgets__widgetContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.widgets__widgetContainer h2 {
+  margin-bottom: 10px;
+}
+
+/* Media Queries for Responsiveness */
+
+/* For tablets (around 768px) */
+@media (max-width: 768px) {
+  .widgets {
+    padding: 15px;
   }
-  
-  
-  .widgets::-webkit-scrollbar {
-    display: none;
+
+  .widgets__input input {
+    font-size: 14px;
+    padding: 8px;
   }
-  
-  .widgets__input {
-    display: flex;
-    align-items: center;
-    background-color: var(--twitter-background);
-    padding: 10px 20px;
-    border-radius: 50px;
-    margin-top: 10px;
-    margin-left: 20px;
-  }
-  
-  .widgets__input>input {
-    border: none;
-    margin-top: 0px;
-    background-color: var(--twitter-background);
-  }
-  
-  .widgets__searchIcon {
-    color: gray;
-  }
-  
-  .widgets__widgetContainer {
-    margin-top: 15px;
-    margin-left: 20px;
-    padding: 20px;
-    background-color: #f5f8fa;
-    border-radius: 20px;
-  }
-  
-  .widgets__widgetContainer>h2 {
+
+  .widgets__widgetContainer h2 {
     font-size: 18px;
-    font-weight: 800;
   }
-  
-  @media screen and (max-width:688px) {
-    .widgets {
-      display: none;
-    }
+
+  .widget__searchIcon {
+    padding: 8px;
   }
+}
+
+/* For smartphones (480px) */
+@media (max-width: 480px) {
+  .widgets {
+    padding: 10px;
+  }
+
+  .widgets__input {
+    margin-bottom: 15px;
+  }
+
+  .widgets__input input {
+    font-size: 12px;
+    padding: 6px;
+  }
+
+  .widgets__widgetContainer h2 {
+    font-size: 16px;
+  }
+}
+
+/* For smaller smartphones (360px) */
+@media (max-width: 360px) {
+  .widgets {
+    padding: 8px;
+  }
+
+  .widgets__input {
+    margin-bottom: 10px;
+  }
+
+  .widgets__input input {
+    font-size: 11px;
+    padding: 5px;
+  }
+
+  .widgets__widgetContainer h2 {
+    font-size: 14px;
+  }
+}

@@ -1,20 +1,15 @@
+/* Base styles for login page */
 .login-container {
     display: flex;
     flex: 1;
     width: 100vw;
-
-
 }
 
 .form-container {
     flex: 1;
     padding: 50px;
     margin: 10px;
-    /* margin-left: -50px; */
     align-content: center;
-
-
-
 }
 
 .form-box {
@@ -26,41 +21,29 @@
 .Twitter-img {
     color: skyblue;
     max-width: 50%;
-
 }
 
 .input-form {
     width: 20px;
-
 }
 
-.heading,
-h1 {
-    font-size: 50px
+.heading, h1 {
+    font-size: 50px;
 }
 
-.heading1,
-h3 {
+.heading1, h3 {
     font-size: 35px;
-
-    justify-content: end
+    justify-content: end;
 }
-
 
 .image-container {
     flex: 2;
     margin-left: -100px;
-
-
 }
 
 .image {
     max-width: 100%;
     height: 100%;
-    /* margin-left: -50px; */
-
-
-
 }
 
 input {
@@ -69,12 +52,9 @@ input {
     padding: 5px;
     background-color: white;
     margin-top: 20px;
-
 }
 
-.email,
-.password {
-
+.email, .password, .display-name {
     background-color: #E8F0FE;
     width: 70%;
     border-radius: 8px;
@@ -82,29 +62,14 @@ input {
     border: none;
     outline: none;
 }
-
-.display-name {
-
-
-    background-color: #E8F0FE;
-    width: 70%;
-    border-radius: 8px;
-    padding: 14px;
-    border: none;
-    outline: none;
-
-}
-
-
-
 
 .btn-login {
-    padding: 7px;
+    margin-top: 10px;
 }
 
 .btn {
     background-color: rgb(92, 199, 241);
-    width: 75%;
+    width: 78%;
     margin-right: 20px;
     padding: 14px;
     border-radius: 8px;
@@ -128,10 +93,8 @@ input {
     margin-top: 5%;
 }
 
-.g-btn>div,
-.g-btn>div>svg {
+.g-btn > div, .g-btn > div > svg {
     height: 30px !important;
-
 }
 
 .errorMessage {
@@ -140,44 +103,115 @@ input {
     margin: 10px 0;
 }
 
-.signUpText>Link {
+.signUpText > Link {
     text-decoration: none;
     color: var(--twitter-color) !important;
-
 }
 
-@media screen and (max-width:688px) {
-    .login-container {
-        order: 2;
-        display: flex;
-        flex-direction: column;
-        font-size: 20px;
 
+
+/* Small tablets and large smartphones */
+@media screen and (max-width: 768px) {
+    .login-container {
+        flex-direction: column;
+        font-size: 16px;
+    }
+
+    .form-container {
+        padding: 20px;
+    }
+
+    .image-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    .image {
+        width: 100%;
+        height: auto;
+    }
+}
+
+/* Small smartphones and very small screens */
+@media screen and (max-width: 480px) {
+    .login-container {
+        flex-direction: column;
+        font-size: 14px;
     }
 
     .form-container {
         padding: 10px;
     }
 
-
     .image-container {
         width: 100%;
-        vertical-align: text-bottom;
+        margin-left: 0;
         display: flex;
         flex-direction: column-reverse;
-        order: 1;
-        max-width: 100%;
-        width: 100%;
-
-
     }
-
 
     .image {
-        order: 2;
         width: 100%;
-        height: 100%;
-        margin-left: 100px;
+        height: auto;
+    }
 
+    .heading, h1 {
+        font-size: 35px;
+    }
+
+    .heading1, h3 {
+        font-size: 25px;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 12px;
+    }
+
+    .g-btn {
+        width: 100% !important;
     }
 }
+
+/* Extra small smartphones */
+@media screen and (max-width: 360px) {
+    .heading, h1 {
+        font-size: 30px;
+    }
+
+    .heading1, h3 {
+        font-size: 20px;
+    }
+
+    .form-container {
+        padding: 5px;
+    }
+
+    .btn {
+        padding: 10px;
+    }
+
+    .g-btn {
+        height: 35px !important;
+        font-size: 14px !important;
+    }
+}
+@media screen and (max-width: 360px) {
+    .btn {
+      padding: 5px 14px; /* Minimal padding for small screens */
+      font-size: 12px;   /* Smallest font size */
+      max-width: 140px;  /* Minimize max width */
+    }
+  }
+
+
+  @media screen and (max-width: 360px) {
+    .image-container {
+      padding: 4px; /* Minimal padding for very small screens */
+    }
+  
+    .image {
+      max-height: 200px; /* Minimal height to fit small screens */
+    }
+  }

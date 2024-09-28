@@ -1,0 +1,104 @@
+/* Base styles for profile page */
+.profilePage {
+  padding: 20px;
+  background-color: #f4f4f4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+}
+
+/* Profile section styling */
+.profileSection {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 100%; 
+  max-width: 500px; 
+  box-sizing: border-box;
+  z-index: 1; 
+  position: relative; 
+}
+
+/* Main profile styles */
+.mainProfileContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.mainProfileHeader {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.mainProfileDetails {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Responsive design adjustments */
+
+/* Tablets in landscape mode and small laptops */
+@media screen and (max-width: 1024px) {
+  .profilePage {
+    padding: 15px;
+  }
+
+  .mainProfileHeader {
+    font-size: 22px;
+  }
+
+  .mainProfileDetails {
+    font-size: 16px;
+  }
+}
+
+/* Small tablets and large smartphones */
+@media screen and (max-width: 768px) {
+  .profilePage {
+    padding: 10px;
+  }
+
+  .mainProfileHeader {
+    font-size: 20px;
+  }
+
+  .mainProfileDetails {
+    font-size: 14px;
+  }
+}
+
+/* Small smartphones and very small screens */
+@media screen and (max-width: 480px) {
+  .profilePage {
+    padding: 8px;
+  }
+
+  .mainProfileHeader {
+    font-size: 18px;
+  }
+
+  .mainProfileDetails {
+    font-size: 12px;
+  }
+}
+
+/* Extra small smartphones */
+@media screen and (max-width: 360px) {
+  .profilePage {
+    padding: 5px;
+  }
+
+  .mainProfileHeader {
+    font-size: 16px;
+  }
+
+  .mainProfileDetails {
+    font-size: 10px;
+  }
+}

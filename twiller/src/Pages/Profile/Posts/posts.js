@@ -5,24 +5,25 @@ import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import RepeatIcon from "@mui/icons-material/Repeat";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import PublishIcon from "@mui/icons-material/Publish";
+import "./posts.css"
 const posts = ({p}) => {
   const { name, username, photo, post, profilephoto } = p;
   return (
     <div className="post">
-      <div className="post__avatar">
+      <div className="post__avatar  ">
         <Avatar src={profilephoto} />
       </div>
-      <div className="post__body">
-        <div className="post__header">
-          <div className="post__headerText">
+      <div className="post__body  ">
+        <div className="post__header ">
+          <div className="post__headerText ">
             <h3>
               {name}{" "}
-              <span className="post__headerSpecial">
+              <span className="post__headerSpecial ">
                 <VerifiedUserIcon className="post__badge" /> @{username}
               </span>
             </h3>
           </div>
-          <div className="post__headerDescription">
+          <div className="post__headerDescription  ">
             <p>{post}</p>
           </div>
         </div>

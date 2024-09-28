@@ -5,72 +5,67 @@ import AddPhotoAlternateOutlinedIcon from "@mui/icons-material/AddPhotoAlternate
 import axios from "axios";
 import { useUserAuth } from "../../../context/UserAuthContext";
 import useLoggedinuser from "../../../hooks/useLoggedinuser";
-const Tweetbox = () => {
-  const [post, setpost] = useState("");
-  const [imageurl, setimageurl] = useState("");
-  const [isloading, setisloading] = useState(false);
-  const [name, setname] = useState("");
-  const [username, setusername] = useState("");
-  const { user } = useUserAuth();
-  const [loggedinsuer] = useLoggedinuser();
-  const email = user?.email;
-  const userprofilepic = loggedinsuer[0]?.profileImage
-    ? loggedinsuer[0].profileImage
-    : user && user.photoURL;
 
-  const handleuploadimage = (e) => {
-    setisloading(true);
+const Tweetbox = ({ canPost }) => {
+  const [post, setPost] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
+  const { user } = useUserAuth();
+  const [loggedInUser] = useLoggedinuser();
+  const email = user?.email;
+  const userProfilePic = loggedInUser[0]?.profileImage || user?.photoURL;
+
+  const handleUploadImage = (e) => {
+    setIsLoading(true);
     const image = e.target.files[0];
-    // console.log(image)
     const formData = new FormData();
     formData.set("image", image);
+
     axios
-      .post(
-        "https://api.imgbb.com/1/upload?key=7a3a32e77fec5c9c83f6ad2049f32940",
-        formData
-      )
+      .post("https://api.imgbb.com/1/upload?key=7a3a32e77fec5c9c83f6ad2049f32940", formData)
       .then((res) => {
-        setimageurl(res.data.data.display_url);
-        // console.log(res.data.data.display_url);
-        setisloading(false);
+        setImageUrl(res.data.data.display_url);
+        setIsLoading(false);
       })
       .catch((e) => {
         console.log(e);
+        setIsLoading(false);
       });
   };
-  const handletweet = (e) => {
+
+  const handleTweet = (e) => {
     e.preventDefault();
     if (user?.providerData[0]?.providerId === "password") {
       fetch(`https://localhost:5000/loggedinuser?email=${email}`)
         .then((res) => res.json())
         .then((data) => {
-          // console.log(data[0].name);
-          setname(data[0]?.name);
-          setusername(data[0]?.username);
+          setName(data[0]?.name);
+          setUsername(data[0]?.username);
         });
     } else {
-      setname(user?.displayName);
-      setusername(email?.split("@")[0]);
+      setName(user?.displayName);
+      setUsername(email?.split("@")[0]);
     }
-    // console.log(name);
+
     if (name) {
-      const userpost = {
-        profilephoto: userprofilepic,
+      const userPost = {
+        profilephoto: userProfilePic,
         post: post,
-        photo: imageurl,
+        photo: imageUrl,
         username: username,
         name: name,
         email: email,
       };
-      // console.log(userpost);
-      setpost("");
-      setimageurl("");
+      setPost("");
+      setImageUrl("");
       fetch("https://twiller-like-as-twitter.onrender.com/post", {
         method: "POST",
         headers: {
-          "content-type": "application/json",
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(userpost),
+        body: JSON.stringify(userPost),
       })
         .then((res) => res.json())
         .then((data) => {
@@ -78,36 +73,27 @@ const Tweetbox = () => {
         });
     }
   };
+
   return (
     <div className="tweetBox">
-      <form onSubmit={handletweet}>
+      <form onSubmit={handleTweet}>
         <div className="tweetBox__input">
-          <Avatar
-            src={
-              loggedinsuer[0]?.profileImage
-                ? loggedinsuer[0].profileImage
-                : user && user.photoURL
-            }
-          />
+          <Avatar src={userProfilePic} />
           <input
             type="text"
             placeholder="What's happening?"
-            onChange={(e) => setpost(e.target.value)}
+            onChange={(e) => setPost(e.target.value)}
             value={post}
             required
           />
         </div>
         <div className="imageIcon_tweetButton">
           <label htmlFor="image" className="imageIcon">
-            {isloading ? (
+            {isLoading ? (
               <p>Uploading Image</p>
             ) : (
               <p>
-                {imageurl ? (
-                  "Image Uploaded"
-                ) : (
-                  <AddPhotoAlternateOutlinedIcon />
-                )}
+                {imageUrl ? "Image Uploaded" : <AddPhotoAlternateOutlinedIcon />}
               </p>
             )}
           </label>
@@ -115,15 +101,23 @@ const Tweetbox = () => {
             type="file"
             id="image"
             className="imageInput"
-            onChange={handleuploadimage}
+            onChange={handleUploadImage}
           />
-          <Button className="tweetBox__tweetButton" type="submit">
-            Tweets
+          <Button
+            className="tweetBox__tweetButton"
+            type="submit"
+            disabled={!canPost}
+          >
+            Tweet
           </Button>
         </div>
       </form>
+      {!canPost && <p>You cannot post right now due to restrictions.</p>}
     </div>
   );
 };
 
 export default Tweetbox;
+
+
+

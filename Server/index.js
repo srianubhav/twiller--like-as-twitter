@@ -1,3 +1,5 @@
+
+
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const express = require("express");
 const cors = require("cors");
@@ -41,9 +43,47 @@ async function run() {
       }
     });
 
+    // Updated /post route with restrictions based on follow and friend count
     app.post("/post", async (req, res) => {
       try {
         const post = req.body;
+        const email = post.email;
+        const user = await usercollection.findOne({ email });
+
+        if (!user) {
+          return res.status(404).json({ error: "User not found" });
+        }
+
+        const now = new Date();
+        const hour = now.getHours();
+        const minutes = now.getMinutes();
+
+        const isTimeRestricted = hour === 10 && minutes >= 0 && minutes <= 30;
+
+        const followCount = user.followCount || 0;
+        const friendCount = user.friendCount || 0;
+
+        // Logic for posting restrictions
+        if (followCount < 2 && friendCount <= 10) {
+          if (followCount === 0 && !isTimeRestricted) {
+            return res.status(403).json({ error: "Posting allowed only between 10:00 AM to 10:30 AM IST" });
+          }
+
+          // Check if user has already posted within the allowed limits
+          const postsToday = await postcollection.countDocuments({
+            email,
+            createdAt: {
+              $gte: new Date(now.getFullYear(), now.getMonth(), now.getDate())
+            }
+          });
+
+          if (followCount < 2 && postsToday >= 2) {
+            return res.status(403).json({ error: "You can only post twice a day." });
+          }
+        }
+
+        // If all checks pass, allow posting
+        post.createdAt = new Date();
         const result = await postcollection.insertOne(post);
         res.status(201).json(result);
       } catch (error) {
@@ -108,3 +148,5 @@ app.get("/", (req, res) => {
 app.listen(port, () => {
   console.log(`Twiller clone is working on port ${port}`);
 });
+
+

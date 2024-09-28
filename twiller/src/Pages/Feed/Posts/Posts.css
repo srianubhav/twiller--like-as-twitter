@@ -1,3 +1,4 @@
+/* Default styles for larger screens (desktop) */
 .post {
   display: flex;
   align-items: flex-start;
@@ -10,8 +11,9 @@
   padding: 10px;
 }
 
-.post__body>img {
+.post__body > img {
   border-radius: 20px;
+  max-width: 100%; /* Ensure image doesn't overflow */
 }
 
 .post__footer {
@@ -31,7 +33,7 @@
   font-size: 15px;
 }
 
-.post__headerText>h3 {
+.post__headerText > h3 {
   font-size: 15px;
   margin-bottom: 5px;
 }
@@ -49,4 +51,98 @@
 
 .post__avatar {
   padding: 20px;
+}
+
+/* Media queries for tablets (768px to 1024px) */
+@media (max-width: 1024px) and (min-width: 768px) {
+  .post {
+      flex-direction: column; /* Stack elements vertically */
+      align-items: center; /* Center the content */
+      padding: 15px; /* Add padding */
+  }
+
+  .post__body {
+      padding: 8px;
+  }
+
+  .post__footer {
+      flex-direction: column; /* Stack footer items vertically */
+      align-items: center; /* Center footer content */
+      padding: 0 8px;
+  }
+}
+
+/* Media queries for smartphones (max-width: 767px) */
+@media (max-width: 767px) {
+  .post {
+      flex-direction: column; /* Stack elements vertically */
+      align-items: center; /* Center the content */
+      padding: 10px; /* Add padding */
+  }
+
+  .post__body {
+      padding: 6px;
+  }
+
+  .post__headerText > h3 {
+      font-size: 14px; /* Smaller font size */
+  }
+
+  .post__headerDescription {
+      font-size: 14px; /* Smaller font size */
+  }
+
+  .post__footer {
+      padding: 0 6px;
+  }
+}
+
+/* Media queries for small smartphones (max-width: 480px) */
+@media (max-width: 480px) {
+  .post {
+      flex-direction: column; /* Stack elements vertically */
+      align-items: center; /* Center the content */
+      padding: 8px; /* Add padding */
+  }
+
+  .post__body {
+      padding: 4px;
+  }
+
+  .post__headerText > h3 {
+      font-size: 12px; /* Smaller font size */
+  }
+
+  .post__headerDescription {
+      font-size: 12px; /* Smaller font size */
+  }
+
+  .post__footer {
+      padding: 0 4px;
+  }
+}
+
+/* Media queries for extra small smartphones (max-width: 360px) */
+@media (max-width: 360px) {
+  .post {
+      flex-direction: column; /* Stack elements vertically */
+      align-items: center; /* Center the content */
+      padding: 5px; /* Add padding */
+  }
+
+  .post__body {
+      padding: 3px;
+  }
+
+  .post__headerText > h3 {
+      font-size: 11px; /* Smaller font size */
+  }
+
+  .post__headerDescription {
+      font-size: 11px; /* Smaller font size */
+  }
+
+  .post__footer {
+      padding: 0 2px;
+  }
 }

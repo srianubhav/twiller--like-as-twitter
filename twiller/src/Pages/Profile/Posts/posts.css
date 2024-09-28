@@ -1,0 +1,162 @@
+/* Base styles for posts component */
+.post {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff; /* White background for posts */
+  border: 1px solid #e6ecf0; /* Light border */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  margin: 10px 0;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+.post__avatar {
+  display: flex;
+  align-items: center;
+}
+
+.post__body {
+  margin-top: 10px;
+}
+
+.post__header {
+  margin-bottom: 10px;
+}
+
+.post__headerText h3 {
+  font-size: 16px; /* Font size for post header */
+  font-weight: 600; /* Bold font weight */
+  margin: 0;
+}
+
+.post__headerSpecial {
+  color: #1da1f2; /* Twitter blue color */
+  display: flex;
+  align-items: center;
+}
+
+.post__badge {
+  font-size: 1rem; /* Adjust badge size */
+  margin-left: 5px;
+}
+
+.post__headerDescription p {
+  font-size: 14px; /* Font size for post description */
+  color: #333; /* Dark text color */
+}
+
+.post__body img {
+  width: 100%; /* Ensure image fits the container */
+  border-radius: 10px; /* Rounded corners for images */
+  margin-top: 10px;
+}
+
+.post__footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.post__fotter__icon {
+  cursor: pointer;
+  color: #1da1f2; /* Twitter blue color */
+}
+
+/* Responsive styles */
+
+/* For tablets (768px and below) */
+@media (max-width: 768px) {
+  .post {
+    padding: 10px;
+  }
+
+  .post__headerText h3 {
+    font-size: 14px;
+  }
+
+  .post__headerDescription p {
+    font-size: 13px;
+  }
+
+  .post__body img {
+    width: 100%;
+  }
+}
+
+/* For smartphones (480px and below) */
+@media (max-width: 480px) {
+  .post {
+    padding: 8px;
+  }
+
+  .post__headerText h3 {
+    font-size: 12px;
+  }
+
+  .post__headerDescription p {
+    font-size: 12px;
+  }
+
+  .post__body img {
+    width: 100%;
+  }
+
+  .post__footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .post__fotter__icon {
+    margin: 5px 0;
+  }
+}
+
+/* For the smallest smartphones (360px and below) */
+@media (max-width: 360px) {
+  .post {
+    padding: 5px;
+  }
+
+  .post__headerText h3 {
+    font-size: 10px;
+  }
+
+  .post__headerDescription p {
+    font-size: 10px;
+  }
+
+  .post__footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .post__fotter__icon {
+    font-size: 0.9rem; /* Slightly smaller icon size */
+    margin: 4px 0;
+  }
+}
+
+
+
+.post-creator {
+  margin-bottom: 20px;
+}
+
+.user-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.following, .friends {
+  width: 45%;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  padding: 5px 0;
+}

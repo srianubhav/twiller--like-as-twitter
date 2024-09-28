@@ -17,3 +17,14 @@ body {
     display: block;
   }
 }
+
+@media screen and(max-width:480){
+  .app{
+    display: block;
+  }
+}
+@media screen and(max-width:360){
+  .app{
+    display: block;
+  }
+}
